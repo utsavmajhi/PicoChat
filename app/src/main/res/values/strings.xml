@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">trail2</string>
+    <string name="title_activity_registeractivity">registeractivity</string>
+    <string name="logout">Logout</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_status">Hi there! I am firing Kamehameha</string>
+</resources>
