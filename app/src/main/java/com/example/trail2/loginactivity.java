@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,7 +23,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 public class loginactivity extends AppCompatActivity {
     private EditText pass;
     private EditText email;
-    private Button login;
+    private ImageView login;
     private FirebaseAuth mAuth;
     private DatabaseReference muserdatabase;
     @Override
@@ -30,7 +32,7 @@ public class loginactivity extends AppCompatActivity {
         setContentView(R.layout.activity_loginactivity);
         email=(EditText) findViewById(R.id.lgemail);
         pass=(EditText) findViewById(R.id.lgpass);
-        login=(Button)findViewById(R.id.lgbutton);
+        login=(ImageView) findViewById(R.id.lgbutton);
         mAuth = FirebaseAuth.getInstance();
         muserdatabase= FirebaseDatabase.getInstance().getReference().child("Users");
     }
@@ -39,32 +41,31 @@ public class loginactivity extends AppCompatActivity {
         String em2=email.getText().toString();
         String p2=pass.getText().toString();
 
-        mAuth.signInWithEmailAndPassword(em2,p2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful())
-                {
+            mAuth.signInWithEmailAndPassword(em2, p2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
 
-                    String current_user_id=mAuth.getCurrentUser().getUid();
-                    String deviceToken= FirebaseInstanceId.getInstance().getToken();
+                        String current_user_id = mAuth.getCurrentUser().getUid();
+                        String deviceToken = FirebaseInstanceId.getInstance().getToken();
 
-                   muserdatabase.child(current_user_id).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
-                       @Override
-                       public void onSuccess(Void aVoid) {
-                           Toast.makeText(loginactivity.this,"Succesfully Logged in",Toast.LENGTH_SHORT).show();
-                           startActivity(new Intent(loginactivity.this,MainActivity.class));
-                           finish();
-                       }
-                   });
+                        muserdatabase.child(current_user_id).child("device_token").setValue(deviceToken).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(loginactivity.this, "Succesfully Logged in", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(loginactivity.this, MainActivity.class));
+                                finish();
+                            }
+                        });
 
 
+                    } else {
+
+                        Toast.makeText(loginactivity.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else
-                {
-                    Toast.makeText(loginactivity.this,"Wrong Credentials",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+            });
+
 
     }
 }

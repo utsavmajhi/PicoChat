@@ -34,7 +34,7 @@ public class lapitchat extends Application {
         mAuth=FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
 
-            //  mUser = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+            // mUser = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
 
             mUserDatabase = FirebaseDatabase.getInstance()
@@ -42,13 +42,10 @@ public class lapitchat extends Application {
             mUserDatabase.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                     if (dataSnapshot != null) {
                         mUserDatabase.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
-
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 

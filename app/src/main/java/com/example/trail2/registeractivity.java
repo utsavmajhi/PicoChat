@@ -1,5 +1,6 @@
 package com.example.trail2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -16,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,7 +50,13 @@ public class registeractivity extends AppCompatActivity {
          String p1=pass.getText().toString();
          String em1=email.getText().toString();
 
-         registration(n1,em1,p1);
+         if(n1.isEmpty()||p1.isEmpty()||em1.isEmpty())
+         {
+             Toast.makeText(registeractivity.this,"Please fill all the credentials",Toast.LENGTH_SHORT).show();
+         }else {
+
+             registration(n1, em1, p1);
+         }
 
     }
     public void registration(final String n1,String email,String password) {
@@ -82,7 +90,8 @@ public class registeractivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(registeractivity.this,"Not successful",Toast.LENGTH_SHORT).show();
+                    FirebaseAuthException e = (FirebaseAuthException )task.getException();
+                    Toast.makeText(registeractivity.this,"Registration not successful reason:"+e.getMessage(),Toast.LENGTH_SHORT).show();
 
                 }
             }

@@ -4,11 +4,16 @@
 
     <item
         android:id="@+id/mainsetting"
-        android:title="Account Settings" />
+        android:icon="@drawable/person1"
+        android:title="Account Settings"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/mainall"
-        android:title="All Users" />
+        android:title="All Users"
+        android:icon="@drawable/people"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/mainlogout"
-        android:title="@string/logout" />
+        android:title="@string/logout"
+        android:icon="@drawable/email"/>
 </menu>

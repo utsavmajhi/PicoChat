@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.googlecode.mp4parser.authoring.Edit;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +63,8 @@ public class ChatActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private String mCurrentUserId;
+    private DatabaseReference muserref;
+    private DatabaseReference prophotouserid;
 
     private ImageButton mChatAddBtn;
     private ImageButton mChatSendBtn;
@@ -103,9 +107,10 @@ public class ChatActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mCurrentUserId=mAuth.getCurrentUser().getUid();
 
+
         mChatUser=getIntent().getStringExtra("user_id");
         String userName=getIntent().getStringExtra("user_name");
-
+        prophotouserid=FirebaseDatabase.getInstance().getReference().child("Users").child(mChatUser);
         getSupportActionBar().setTitle(userName);
 
         LayoutInflater inflater=(LayoutInflater)ChatActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -134,6 +139,24 @@ public class ChatActivity extends AppCompatActivity {
 
         loadMessages();
         mTitleView.setText(userName);
+        prophotouserid.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String image=dataSnapshot.child("image").getValue().toString();
+                if(image.equals("default"))
+                {
+
+                }else{
+                Picasso.with(mProfileImage.getContext()).load(image)
+                        .placeholder(R.drawable.pro).into(mProfileImage);}
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
        mRootRef.child("Users").child(mChatUser).addValueEventListener(new ValueEventListener() {
             @Override
@@ -464,4 +487,8 @@ public class ChatActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+
 }

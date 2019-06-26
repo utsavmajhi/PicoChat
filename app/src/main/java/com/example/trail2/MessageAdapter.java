@@ -1,6 +1,7 @@
 package com.example.trail2;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private List<Messages> mMessageList;
     private FirebaseAuth mAuth;
     private DatabaseReference mUserDatabase;
+    private DatabaseReference muserref;
 
 
 
@@ -41,7 +44,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v= LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.message_single_layout,viewGroup,false);
+
         return new MessageViewHolder(v);
+
     }
 
 
@@ -74,6 +79,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         String from_user=c.getFrom();
         String message_type=c.getType();
 
+
         mUserDatabase= FirebaseDatabase.getInstance().getReference().child("Users").child(from_user);
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
@@ -89,7 +95,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                         .placeholder(R.drawable.pro).into(messageViewHolder.profileImage);
 
 
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -114,12 +122,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         mAuth=FirebaseAuth.getInstance();
         String current_user_id=mAuth.getCurrentUser().getUid();
 
+
         if(from_user.equals(current_user_id))
         {
-           messageViewHolder.messageText.setBackgroundColor(Color.WHITE);
+
+            messageViewHolder.messageText.setBackgroundResource(R.drawable.message_text_background2);
            messageViewHolder.messageText.setTextColor(Color.BLACK);
 
-        }else
+
+        }
+        else
         {
 
             messageViewHolder.messageText.setBackgroundResource(R.drawable.message_text_background);
@@ -134,6 +146,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public int getItemCount() {
+
         return mMessageList.size();
     }
 
