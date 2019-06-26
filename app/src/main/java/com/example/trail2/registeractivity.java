@@ -1,5 +1,6 @@
 package com.example.trail2;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -33,6 +34,7 @@ public class registeractivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mdatabase;
     private DatabaseReference muserdatabase;
+    private ProgressDialog mprogressdialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,11 @@ public class registeractivity extends AppCompatActivity {
 
     }
     public void registration(final String n1,String email,String password) {
+        mprogressdialog=new ProgressDialog(registeractivity.this);
+        mprogressdialog.setTitle("Registering");
+        mprogressdialog.setMessage("Please Wait! while you are being registered");
+        mprogressdialog.setCanceledOnTouchOutside(false);
+        mprogressdialog.show();
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
