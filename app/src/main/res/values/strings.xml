@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">trail2</string>
+    <string name="app_name">PicoChat</string>
     <string name="title_activity_registeractivity">registeractivity</string>
     <string name="logout">Logout</string>
 

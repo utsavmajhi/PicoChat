@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/back"
     tools:context=".settingsactivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -61,8 +61,10 @@
         android:layout_marginTop="136dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+        android:fontFamily="@font/akronim"
         android:onClick="onclickimagebtn"
         android:text="Change Image"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/settings_status" />
@@ -77,9 +79,11 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorAccent"
+        android:fontFamily="@font/akronim"
         android:onClick="onclickstatus"
         android:text="Change Status"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

@@ -55,9 +55,9 @@
         <ImageButton
             android:id="@+id/chat_add_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+            android:background="@drawable/btnui3"
             app:srcCompat="@drawable/addnewicon" />
 
         <EditText
@@ -67,15 +67,16 @@
             android:layout_weight="8"
             android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
             android:ems="10"
-            android:hint="Enter Your Message"
-            android:inputType="textPersonName" />
+            android:hint="Enter Your Message..."
+            android:inputType="textPersonName"
+            android:textStyle="italic" />
 
         <ImageButton
             android:id="@+id/chat_send_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+            android:background="@drawable/btnui2"
             app:srcCompat="@drawable/sendicon" />
     </LinearLayout>
 

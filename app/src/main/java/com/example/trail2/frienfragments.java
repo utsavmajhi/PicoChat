@@ -39,6 +39,7 @@ public class frienfragments extends Fragment {
     private FirebaseAuth mAuth;
     private String mCurrent_user_id;
     private View mMainView;
+    private DatabaseReference muserref;
     public frienfragments() {
         // Required empty public constructor
     }
@@ -126,10 +127,12 @@ public class frienfragments extends Fragment {
 
                                         if(i == 1){
                                            //remember going to chat actvity
+
                                             Intent chatIntent = new Intent(getContext(), ChatActivity.class);
                                             chatIntent.putExtra("user_id", list_user_id);
                                             chatIntent.putExtra("user_name", userName);
                                             startActivity(chatIntent);
+
 
                                         }
 

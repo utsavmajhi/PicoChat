@@ -17,12 +17,12 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.core.ServerValues;
 
 public class MainActivity extends AppCompatActivity {
-     private FirebaseAuth mAuth;
-     private Toolbar mtoolbar;
-     private ViewPager mviewpager;
-     private SectionsPagerAdapter mSectionsPagerAdapter;
-     private TabLayout  mtablayout;
-     private DatabaseReference mUserRef;
+    private FirebaseAuth mAuth;
+    private Toolbar mtoolbar;
+    private ViewPager mviewpager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private TabLayout  mtablayout;
+    private DatabaseReference mUserRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         mtoolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mtoolbar);
-        getSupportActionBar().setTitle("KameChat");
+        getSupportActionBar().setTitle("PicoChat");
 
         //tabs
         if (mAuth.getCurrentUser() != null) {
@@ -40,11 +40,17 @@ public class MainActivity extends AppCompatActivity {
             mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
         }
+        else
+        {
+            startActivity(new Intent(MainActivity.this,startingactivity.class));
+            finish();
+
+        }
 
         mviewpager=(ViewPager) findViewById(R.id.maintabpager);
         mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
         mviewpager.setAdapter(mSectionsPagerAdapter);
-         mtablayout=(TabLayout) findViewById(R.id.maintabs);
+        mtablayout=(TabLayout) findViewById(R.id.maintabs);
         mtablayout.setupWithViewPager(mviewpager);
 
 
@@ -57,16 +63,16 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-         if(currentUser==null)
-         {
+        if(currentUser==null)
+        {
 
-             startActivity(new Intent(MainActivity.this,startingactivity.class));;
+            startActivity(new Intent(MainActivity.this,startingactivity.class));
 
-         }
-         else
-         {
+        }
+        else
+        {
             mUserRef.child("online").setValue(true);
-         }
+        }
 
     }
 
@@ -79,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
 
         }
-       // mUserRef.child("online").setValue(false);
+        // mUserRef.child("online").setValue(false);
 
     }
 
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if(item.getItemId()==R.id.mainsetting)
         {
-           startActivity(new Intent(MainActivity.this,settingsactivity.class));
+            startActivity(new Intent(MainActivity.this,settingsactivity.class));
         }
         if(item.getItemId()==R.id.mainall)
         {
