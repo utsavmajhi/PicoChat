@@ -189,6 +189,7 @@ public class frienfragments extends Fragment {
             TextView userStatusView = mView.findViewById(R.id.user_single_status);
             userStatusView.setText(date);
 
+
         }
 
         public void setName(String name){

@@ -39,6 +39,7 @@ public class refragments extends Fragment {
     private FirebaseAuth mAuth;
     private String mCurrent_user_id;
     private View mMainView;
+    private DatabaseReference mrootref;
     private DatabaseReference muserref;
     public refragments() {
         // Required empty public constructor
@@ -54,7 +55,8 @@ public class refragments extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mCurrent_user_id = mAuth.getCurrentUser().getUid();
 
-        mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req").child(mCurrent_user_id);
+        mrootref=FirebaseDatabase.getInstance().getReference().child("Friend_req");
+        mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friendreqreceived").child(mCurrent_user_id);
         mFriendsDatabase.keepSynced(true);
         mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mUsersDatabase.keepSynced(true);
@@ -84,7 +86,9 @@ public class refragments extends Fragment {
             protected void onBindViewHolder(@NonNull final FriendsViewHolder friendsViewHolder, int i, @NonNull Friends friends) {
                 friendsViewHolder.setDate(friends.getDate());
 
+
                 final String list_user_id = getRef(i).getKey();
+
 
                 mUsersDatabase.child(list_user_id).addValueEventListener(new ValueEventListener() {
                     @Override
