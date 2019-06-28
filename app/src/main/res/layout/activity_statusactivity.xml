@@ -5,9 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".statusactivity">
-<include layout="@layout/app_bar_layout" android:id="@+id/statussappbar">
 
-</include>
+    <include
+        android:id="@+id/statussappbar"
+        layout="@layout/app_bar_layout">
+
+    </include>
 
     <Button
         android:id="@+id/statussavebtn"

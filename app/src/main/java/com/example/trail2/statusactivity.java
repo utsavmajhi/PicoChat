@@ -21,10 +21,10 @@ public class statusactivity extends AppCompatActivity {
     private Toolbar mtoolbar;
     private TextInputLayout mstatus;
     private Button msavebtn;
-//progress dialog
+    //progress dialog
     private ProgressDialog mprogress;
     //firbase
-     private FirebaseUser mcurrentuser;
+    private FirebaseUser mcurrentuser;
     private DatabaseReference mstatusdatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class statusactivity extends AppCompatActivity {
         mstatus=(TextInputLayout)findViewById(R.id.status_input);
         msavebtn=(Button)findViewById(R.id.statussavebtn);
 
-         mstatus.getEditText().setText(status_value);
+        mstatus.getEditText().setText(status_value);
 
     }
 
