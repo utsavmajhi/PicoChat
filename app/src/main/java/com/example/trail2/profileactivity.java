@@ -315,7 +315,9 @@ public class profileactivity extends AppCompatActivity {
                       mprofilereqbutton.setEnabled(false);
                       mcurrent_state="friends";
                       //mprofilereqbutton.setText("Unfriend this Person");
-
+                      mprofilereqbutton.setVisibility(View.INVISIBLE);
+                      unfrndbtn.setVisibility(View.VISIBLE);
+                      unfrndbtn.setEnabled(true);
                       mdecbtn.setVisibility(View.INVISIBLE);
                       mdecbtn.setEnabled(false);
                   }else
