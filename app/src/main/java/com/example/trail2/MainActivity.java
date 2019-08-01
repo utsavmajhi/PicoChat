@@ -33,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
         mtoolbar=(Toolbar)findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setTitle("PicoChat");
+        mviewpager=(ViewPager) findViewById(R.id.maintabpager);
+        mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
+        mviewpager.setAdapter(mSectionsPagerAdapter);
+        mtablayout=(TabLayout) findViewById(R.id.maintabs);
+        mtablayout.setupWithViewPager(mviewpager);
+
 
         //tabs
         if (mAuth.getCurrentUser() != null) {
@@ -46,12 +52,6 @@ public class MainActivity extends AppCompatActivity {
             finish();
 
         }
-
-        mviewpager=(ViewPager) findViewById(R.id.maintabpager);
-        mSectionsPagerAdapter=new SectionsPagerAdapter(getSupportFragmentManager());
-        mviewpager.setAdapter(mSectionsPagerAdapter);
-        mtablayout=(TabLayout) findViewById(R.id.maintabs);
-        mtablayout.setupWithViewPager(mviewpager);
 
 
 
@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         {
 
             startActivity(new Intent(MainActivity.this,startingactivity.class));
+            finish();
 
         }
         else
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.mainlogout)
         {
             FirebaseAuth.getInstance().signOut();
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
             startActivity(new Intent(MainActivity.this,startingactivity.class));
         }
         if(item.getItemId()==R.id.mainsetting)

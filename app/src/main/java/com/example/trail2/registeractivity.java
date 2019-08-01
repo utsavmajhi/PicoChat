@@ -87,7 +87,7 @@ public class registeractivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
 
-                            Toast.makeText(registeractivity.this,"Registration Succesful",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(registeractivity.this,"Registration Successful",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(registeractivity.this,MainActivity.class));
                         }
                     });

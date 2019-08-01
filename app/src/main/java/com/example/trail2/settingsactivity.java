@@ -241,4 +241,9 @@ public class settingsactivity extends AppCompatActivity {
         }
         return randomStringBuilder.toString();
     }
+
+    public void editname(View view) {
+        startActivity(new Intent(settingsactivity.this,namechange.class));
+        finish();
+    }
 }

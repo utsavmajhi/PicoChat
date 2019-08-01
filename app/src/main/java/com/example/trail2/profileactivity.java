@@ -38,6 +38,7 @@ public class profileactivity extends AppCompatActivity {
     private Button mprofilereqbutton, mdecbtn,unfrndbtn;
     private DatabaseReference musersdatabase;
 
+    private int frndscount;
     private FirebaseUser mcurrentuser;
 
     private ProgressDialog mprogressdialog;
@@ -46,7 +47,7 @@ public class profileactivity extends AppCompatActivity {
 
     private DatabaseReference mnotificationdatabse;
     private DatabaseReference mfriendreqdatabase;
-    private DatabaseReference  mfriendDatabase;
+    private DatabaseReference  mfriendDatabase,mfrndcountdata;
     private DatabaseReference mRootRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class profileactivity extends AppCompatActivity {
          mdecbtn=(Button)findViewById(R.id.profiledec_btn) ;
          unfrndbtn=(Button)findViewById(R.id.profileunreqbtn);
         //friends databse
+
         mRootRef=FirebaseDatabase.getInstance().getReference();
         mnotificationdatabse=FirebaseDatabase.getInstance().getReference().child("notification");
         mfriendDatabase=FirebaseDatabase.getInstance().getReference().child("Friends");
@@ -88,6 +90,27 @@ public class profileactivity extends AppCompatActivity {
         musersdatabase.keepSynced(true);
         mRootRef.keepSynced(true);
         mfriendreqdatabase.keepSynced(true);
+
+        mRootRef.child("Friends").child(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+
+                    frndscount=(int)dataSnapshot.getChildrenCount();
+                    mprofilefriendscount.setText("Total Friends:"+frndscount);
+                }
+                else
+                {
+                    mprofilefriendscount.setText("Total Friends:"+"0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         musersdatabase.addValueEventListener(new ValueEventListener() {
             @Override

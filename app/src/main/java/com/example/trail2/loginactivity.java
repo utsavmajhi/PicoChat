@@ -51,7 +51,7 @@ public class loginactivity extends AppCompatActivity {
         }else {
             mprogressdialog=new ProgressDialog(loginactivity.this);
             mprogressdialog.setTitle("Authentication");
-            mprogressdialog.setMessage("Please Wait while we verify the credentials");
+            mprogressdialog.setMessage("Please Wait! while we verify the credentials");
             mprogressdialog.setCanceledOnTouchOutside(false);
             mprogressdialog.show();
             mAuth.signInWithEmailAndPassword(em2, p2).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
