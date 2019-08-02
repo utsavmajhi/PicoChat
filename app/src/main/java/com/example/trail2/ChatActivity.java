@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.marlonlom.utilities.timeago.TimeAgo;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,10 +41,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.googlecode.mp4parser.authoring.Edit;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +91,7 @@ public class ChatActivity extends AppCompatActivity {
     private String mPrevKey="";
 
     //images sending part
-    private static final int GALLERY_PICK=1;
+    private static final int GALLERY_PIC=1;
     private StorageReference mImageStorage;
 
 
@@ -105,6 +110,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mRootRef= FirebaseDatabase.getInstance().getReference();
         mAuth=FirebaseAuth.getInstance();
+        mImageStorage= FirebaseStorage.getInstance().getReference();
         mCurrentUserId=mAuth.getCurrentUser().getUid();
 
 
@@ -127,6 +133,7 @@ public class ChatActivity extends AppCompatActivity {
         mChatAddBtn=(ImageButton)findViewById(R.id.chat_add_btn);
         mChatSendBtn=(ImageButton)findViewById(R.id.chat_send_btn);
         mChatMessageView=(EditText)findViewById(R.id.chat_messgae_view);
+
 
         mAdapter=new MessageAdapter(messagesList);
         mMessagesList=(RecyclerView)findViewById(R.id.messages_list);
@@ -231,7 +238,6 @@ public class ChatActivity extends AppCompatActivity {
                sendMessage();
            }
        });
-
         mChatAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,11 +246,14 @@ public class ChatActivity extends AppCompatActivity {
                 galleryIntent.setType("image/*");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
 
-                startActivityForResult(Intent.createChooser(galleryIntent,"SELECT IMAGE"),GALLERY_PICK);
+                startActivityForResult(Intent.createChooser(galleryIntent,"SELECT IMAGE"),GALLERY_PIC);
+
               //  onActivityResult();
 
             }
         });
+
+
 
 
 
@@ -265,22 +274,19 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode==GALLERY_PICK && resultCode==RESULT_OK)
+        if(requestCode==GALLERY_PIC && resultCode==RESULT_OK)
         {
-            Uri imageUri=data.getData();
-
+           // Uri imageUri=data.getData();
             final String current_user_ref="messages/"+mCurrentUserId+"/"+mChatUser;
             final String chat_user_ref="messages/"+mChatUser+"/"+mCurrentUserId;
-
             DatabaseReference user_message_push=mRootRef.child("messages")
                     .child(mCurrentUserId).child(mChatUser).push();
-
             final String push_id=user_message_push.getKey();
-
+            Toast.makeText(this, "succees", Toast.LENGTH_SHORT).show();
+            Uri imageUri=data.getData();
             final StorageReference filepath=mImageStorage.child("messages_images").child(push_id+".jpg");
 
-            filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+           filepath.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 
@@ -289,8 +295,9 @@ public class ChatActivity extends AppCompatActivity {
                         filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                String download_url=uri.toString();
 
+                                String download_url=uri.toString();
+                                Toast.makeText(ChatActivity.this, download_url, Toast.LENGTH_SHORT).show();
                                 Map messageMap=new HashMap();
                                 messageMap.put("message",download_url);
                                 messageMap.put("seen",false);
@@ -306,31 +313,22 @@ public class ChatActivity extends AppCompatActivity {
                                 mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-
                                         if(databaseError!=null)
                                         {
+                                            Toast.makeText(ChatActivity.this, "done evrything", Toast.LENGTH_SHORT).show();
                                             Log.d("CHATLOG",databaseError.getMessage().toString());
                                         }
                                     }
                                 });
-
                             }
                         });
-
-
-
                     }
-
                 }
             });
 
+            // start cropping activity for pre-acquired image saved on the device
 
         }
-        else
-        {
-            Log.d("CHATLOG","error babu");
-        }
-
 
     }
 
@@ -478,6 +476,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     if(databaseError!=null)
                     {
+
                         Log.d("CHAT_LOG",databaseError.getMessage().toString());
                     }
 
