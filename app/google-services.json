@@ -42,6 +42,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064215944646:android:f8c29344adf946e6",
+        "android_client_info": {
+          "package_name": "com.picoutsav.trail2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064215944646-nplrkpp01o0g2f2s39o86v1b6800d65i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCR51ikh_An4YzVYSOzGGWs4sFyz8N1Tdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064215944646-nplrkpp01o0g2f2s39o86v1b6800d65i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

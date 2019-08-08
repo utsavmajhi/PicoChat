@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.trail2">
+    package="com.picoutsav.trail2">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".lapitchat"
+        android:name="com.picoutsav.trail2.lapitchat"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:hardwareAccelerated="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".namechange"
-            android:parentActivityName=".settingsactivity">
+        <activity android:name="com.picoutsav.trail2.namechange"
+            android:parentActivityName="com.picoutsav.trail2.settingsactivity">
 
         </activity>
         <activity
-            android:name=".ChatActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:name="com.picoutsav.trail2.ChatActivity"
+            android:parentActivityName="com.picoutsav.trail2.MainActivity"></activity>
 
         <service
-            android:name=".FirebaseMessagingService"
+            android:name="com.picoutsav.trail2.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name=".profileactivity">
+        <activity android:name="com.picoutsav.trail2.profileactivity">
             <intent-filter>
                 <action android:name="com.example.trail2_TARGET_NOTIFICATION" />
 
@@ -37,16 +38,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".usersactivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.picoutsav.trail2.usersactivity"
+            android:parentActivityName="com.picoutsav.trail2.MainActivity" />
         <activity
-            android:name=".statusactivity"
-            android:parentActivityName=".settingsactivity" />
-        <activity android:name=".settingsactivity" />
-        <activity android:name=".loginactivity" />
-        <activity android:name=".startingactivity" />
-        <activity android:name=".registeractivity" />
-        <activity android:name=".MainActivity">
+            android:name="com.picoutsav.trail2.statusactivity"
+            android:parentActivityName="com.picoutsav.trail2.settingsactivity" />
+        <activity android:name="com.picoutsav.trail2.settingsactivity" />
+        <activity android:name="com.picoutsav.trail2.loginactivity" />
+        <activity android:name="com.picoutsav.trail2.startingactivity" />
+        <activity android:name="com.picoutsav.trail2.registeractivity" />
+        <activity android:name="com.picoutsav.trail2.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
