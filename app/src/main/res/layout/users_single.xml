@@ -7,8 +7,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/message_profile_layout"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="15dp"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/message_profile_layout"
         android:text="Display Name"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_single_name"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:layout_toEndOf="@+id/message_profile_layout"
         android:text="user default status" />
 
