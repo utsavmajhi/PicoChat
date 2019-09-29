@@ -37,8 +37,7 @@
         android:layout_below="@+id/user_single_name"
         android:layout_marginStart="21dp"
         android:layout_marginTop="7dp"
-        android:layout_toEndOf="@+id/message_profile_layout"
-        android:text="user default status" />
+        android:layout_toEndOf="@+id/message_profile_layout" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/greenon"
